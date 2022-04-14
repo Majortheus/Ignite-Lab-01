@@ -9,9 +9,18 @@ export default function Home() {
       <h1>Hello World</h1>
       <pre>{JSON.stringify(user, null, 2)}</pre>
 
-      <a href="/api/auth/logout">Logout</a>
+      <a href="/api/auth/logout" alt="logout">
+        Logout
+      </a>
     </div>
   );
 }
 
-export const getServerSideProps = withPageAuthRequired();
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = getSession(ctx.req, ctx.res);
+  console.log({ session });
+  return {
+    props: {},
+  };
+};
+// withPageAuthRequired();
