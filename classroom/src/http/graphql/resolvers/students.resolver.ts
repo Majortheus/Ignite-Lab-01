@@ -13,6 +13,12 @@ export class StudentsResolver {
     private enrollmentsService: EnrollmentsService,
   ) {}
 
+  @Query(() => Student)
+  @UseGuards(AuthorizationGuard)
+  me() {
+    return this.studentsService.listAllStudents();
+  }
+
   @Query(() => [Student])
   @UseGuards(AuthorizationGuard)
   students() {
