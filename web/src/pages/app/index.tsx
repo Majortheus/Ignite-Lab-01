@@ -16,13 +16,14 @@ export default function Home({ accessToken }: { accessToken: string }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = getSession(ctx.req, ctx.res);
-  console.log({ session });
-  return {
-    props: {
-      accessToken: session?.accessToken,
-    },
-  };
-};
-// withPageAuthRequired();
+export const getServerSideProps = withPageAuthRequired({
+  getServerSideProps: async ({ req, res }) => {
+    const session = getSession(req, res);
+    console.log({ session });
+    return {
+      props: {
+        accessToken: session?.accessToken,
+      },
+    };
+  },
+});
